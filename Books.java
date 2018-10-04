@@ -13,7 +13,8 @@ public class Books implements Serializable
 {
 	BufferedReader scan = new BufferedReader(new InputStreamReader(System.in));
 	//Declarations of Variables/Properties
-	
+	//testing github intregrity
+
 	static int bookId=0; 		// Stores ID of Books
 	double bookPrice; 			// Stores Price of Book
 	int availableCopies;		// Stores Nos. of available copies
@@ -23,12 +24,12 @@ public class Books implements Serializable
 	//StringBuffer studentName;	// Stores Name of Student which issued/Returned Book.
 	StringBuffer issuedTo[] = new StringBuffer[1000];
 	//Stores all names of students which issued same book.
-	
+
 	static ArrayList<Books> bookData = new ArrayList<Books>();
-	
+
 	//Constructor
 	public Books(String bookTitle, String bookAuthor, String bookSubject, double bookPrice, int availableCopies)
-	{	
+	{
 		generateBookId();
 		this.bookTitle=bookTitle;
 		this.bookAuthor=bookAuthor;
@@ -36,117 +37,117 @@ public class Books implements Serializable
 		this.bookPrice=bookPrice;
 		this.availableCopies=availableCopies;
 	}
-	
+
 	//Functions
 	public static int generateBookId(){
 		bookId++;		//Incrementing Book Id
 		return bookId;	// Returning the incremented book Id
 	}
-	
+
 	public int getBookId(){
 		return bookId;
 	}
-	
+
 	public double getBookPrice(){
 		return bookPrice;
 	}
-	
+
 	public String getBookTitle(){
 		return bookTitle;
 	}
-	
+
 	public String getBookAuthor(){
 		return bookAuthor;
 	}
-	
+
 	public String getBookSubject(){
 		return bookSubject;
 	}
-	
+
 	public int getAvailableCopies(){
 		return availableCopies;
 	}
-	
+
 	public int setBookId(){
 		bookId = Integer.parseInt(scan.readLine());
 	}
-	
+
 	public void setBookPrice(){
 		bookPrice = Double.parseDouble(scan.readLine());
 	}
-	
+
 	public void setBookTitle(){
 		bookTitle = scan.readLine();
 	}
-	
+
 	public void setBookAuthor(){
 		bookAuthor = scan.readLine();
 	}
-	
+
 	public void setBookSubject(){
 		bookSubject = scan.readLine();
 	}
-	
+
 	public void setNoOfCopies(){
 		availableCopies = Integer.parseInt(scan.readLine());
 	}
-	
+
 	public void addBookCopies(){
 		availableCopies++;
 	}
-	
+
 	public void removeBookCopies(){
 		availableCopies--;
 	}
-	
+
 	public static void saveData()
 	{
 		FileOutputStream fos = null;
         ObjectOutputStream oos = null;
- 
+
         try {
             fos = new FileOutputStream("Database.ser");
             oos = new ObjectOutputStream(fos);
 			oos.flush();
 			oos.writeObject(bookData);
             oos.close();
-        } 
+        }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
         catch (IOException e) {
             System.out.println("IO Exception");
         }
- 
+
         System.out.println("Database Updated.");
 	}
-	
+
 	public static void fetchData()
 	{
 		FileInputStream fis = null;
         ObjectInputStream ois = null;
- 
-       
+
+
         ArrayList<Books> bookData = null;
- 
+
         try {
             fis = new FileInputStream("Database.ser");
             ois = new ObjectInputStream(fis);
             bookData = (ArrayList<Books>) ois.readObject();
-        } 
+        }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
         catch (IOException e) {
             System.out.println("IO Exception");
-        } 
+        }
         catch (ClassNotFoundException e) {
             System.out.println("Class not found");
         }
- 
+
         System.out.println("Data Fetched Successfully");
 	}
-	
+
 	public void addBook()
 	{
 		try{
@@ -161,7 +162,7 @@ public class Books implements Serializable
 			this.setBookPrice();
 			System.out.println(" Enter Number of Copies     :");
 			this.setNoOfCopies();
-		
+
 		}catch(IOException e){
 			System.out.println("IO Exception Caught: "+e);
 		}catch(Exception e){
@@ -173,10 +174,10 @@ public class Books implements Serializable
 			fw.write("\n Book Index ["+count+"] Contains Book Named: ["+getBookTitle()+"]");
 			fw.close();
 			saveData();
-		}		
-		
+		}
+
 	}
-	
+
 	public void deleteBook()
 	{
 		fetchData();
@@ -185,14 +186,14 @@ public class Books implements Serializable
 			System.out.println("_________________Delete Book_________________");
 			System.out.println("Enter Title of Book to delete: ");
 			String title = scan.readLine();
-			
+
 			for(int i=0;i<bookData.size();i++)
 			{
 				if(title.equalsIgnoreCase(bookData.get(i).getBookTitle()))
 				{
 					if(bookData.getBookId() == Library.getObjCount())
 					{
-						bookData.set(bookData.indexOf(i),null); 
+						bookData.set(bookData.indexOf(i),null);
 						//changing the value to null so that index of books would be maintained
 						// ...to avoid left shift
 						break;
@@ -209,7 +210,7 @@ public class Books implements Serializable
 			{
 				System.out.println("Book Not Found.");
 			}
-			
+
 		}catch(Exception e){
 			System.out.println("Exception Caught: "+e);
 		}finally{
@@ -222,7 +223,7 @@ public class Books implements Serializable
 			saveData();
 		}
 	}
-	
+
 	public void modifyBook()
 	{
 		fetchData();
@@ -231,7 +232,7 @@ public class Books implements Serializable
 			System.out.println("_________________Modify Book_________________");
 			System.out.println("Enter Title of Book to Modify: ");
 			String title = scan.readLine();
-			
+
 			for(int i=0;i<bookData.size();i++)
 			{
 				if(title.equalsIgnoreCase(bookData.get(i).getBookTitle()))
@@ -258,7 +259,7 @@ public class Books implements Serializable
 			{
 				System.out.println("Book Not Found.");
 			}
-			
+
 		}catch(Exception e){
 			System.out.println("Exception Caught: "+e);
 		}finally{
@@ -266,7 +267,7 @@ public class Books implements Serializable
 			saveData();
 		}
 	}
-	
+
 	public void searchBook()
 	{
 		fetchData();
@@ -302,7 +303,7 @@ public class Books implements Serializable
 			{
 				System.out.println("Book Not Found.");
 			}
-		
+
 		}catch(Exception e){
 			System.out.println("Exception Caught: "+e);
 		}finally{
@@ -310,7 +311,7 @@ public class Books implements Serializable
 			saveData();
 		}
 	}
-	
+
 	public void issueBook()
 	{
 		fetchData();
@@ -331,8 +332,8 @@ public class Books implements Serializable
 						i++;
 						bookData.get(i).removeBookCopies();
 						i++;
-						bookData.get(i).setIssueDate(date); 
-						
+						bookData.get(i).setIssueDate(date);
+
 						File file = new File("issueLogs.txt");
 						FileWriter fw = new FileWriter(file, true);
 						fw.write("\n["+date+"] : Book Title : "+bookData.get(i).getBookTitle+" was Issued by Student Name"+studName);
@@ -354,7 +355,7 @@ public class Books implements Serializable
 			saveData();
 		}
 	}
-	
+
 	public void returnBook()
 	{
 		fetchData();
@@ -375,8 +376,8 @@ public class Books implements Serializable
 						i++;
 						bookData.get(i).addBookCopies();
 						i++;
-						bookData.get(i).setIssueDate(date); 
-						
+						bookData.get(i).setIssueDate(date);
+
 						File file = new File("returnLogs.txt");
 						FileWriter fw = new FileWriter(file, true);
 						fw.write("\n["+date+"] : Book Title : "+bookData.get(i).getBookTitle+" was Returned by Student Name"+studName);
@@ -396,14 +397,6 @@ public class Books implements Serializable
 			System.out.println("Return Operation Finished.");
 			saveData();
 		}
-		
+
 	}
 }
-
-
-
-
-
-
-
-
