@@ -1,5 +1,4 @@
 /*
-		testing
 		Library Management System by - ( Suyash + Shubham + Manasi + Jyoti + Chinmay)
 */
 package LibraryManagement;
@@ -13,7 +12,7 @@ public class Books implements Serializable
 {
 	BufferedReader scan = new BufferedReader(new InputStreamReader(System.in));
 	//Declarations of Variables/Properties
-	//testing github intregrity
+
 
 	static int bookId=0; 		// Stores ID of Books
 	double bookPrice; 			// Stores Price of Book
