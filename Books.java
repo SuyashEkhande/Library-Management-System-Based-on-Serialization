@@ -1,5 +1,5 @@
 /*
-		Library Management System by - ( Suyash + Shubham + Manasi + Jyoti + Chinmay)
+		Library Management System by - Suyash
 */
 package LibraryManagement;
 
